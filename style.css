@@ -32,18 +32,35 @@ figure {
   /* TODO 1: Læs data-value som tekst, tal og procent med attr().
      Kald værdierne --value-string, --value-number og --value-percent. */
 
+  --value-string: attr(data-value);
+  --value-number: attr(data-value number);
+  --value-percent: attr(data-value %);
+
   /* TODO 3: Brug et fælles grid-område "stack" til SVG og ::after.
      Centrér indholdet, og opret en inline-size-container med navnet stat. */
+
+  display: grid;
+  grid: "stack";
+  container: stat / inline-size;
+  place-items: center;
 }
 
 figure::after {
   /* TODO 3: Vis --value-string med content, og placér tallet i "stack".
      Brug 30cqw og font-weight: 700, så tallet følger figurens bredde. */
+
+  content: var(--value-string) "%";
+  grid-area: stack;
+  font-size: 30cqw;
+  font-weight: 700;
 }
 
 svg {
   /* TODO 2: Drej SVG'en -90deg, så ringen starter øverst. */
   /* TODO 3: Placér SVG'en i "stack". */
+
+  rotate: -90deg;
+  grid-area: stack;
 }
 
 .track {
@@ -65,15 +82,21 @@ svg {
 
   /* TODO 2: Brug stroke-dasharray og stroke-dashoffset sammen med
      pathLength="100", så --value-number bestemmer ringens længde. */
+
+  stroke-dasharray: 100.1;
+  stroke-dashoffset: calc(100 - var(--value-number));
 }
 
 .marker {
   /* Markøren vises først, når du arbejder med trin 4. */
-  visibility: hidden;
+  visibility: visible;
 
   /* TODO 4: Brug en cirkulær offset-path med samme centrum og radius
      som ringen. Lad --value-percent styre offset-distance,
      og skift visibility til visible. */
+
+  offset-path: circle(46px at 50px 50px);
+  offset-distance: var(--value-percent);
 }
 
 figcaption {
